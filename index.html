@@ -8,8 +8,9 @@
 </head>
 <body>
     <div class="video-background">
-        <video autoplay loop muted>
-            <source src="https://envs.sh/z7Q.mp4" type="video/mp4">
+        <!-- Видео загружается лениво с плейсхолдером -->
+        <video id="background-video" autoplay loop muted preload="none" poster="poster.jpg">
+            <source data-src="https://envs.sh/z7Q.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -21,5 +22,15 @@
         <p><strong>Hobbies:</strong> Watching TikTok, decorating paintings by numbers, and dancing</p>
         <a href="http://t.me/ksellik" class="button">Telegram</a>
     </div>
+
+    <script>
+        // Lazy-loading видео
+        document.addEventListener("DOMContentLoaded", () => {
+            const video = document.getElementById('background-video');
+            const source = video.querySelector('source');
+            source.src = source.getAttribute('data-src');
+            video.load();
+        });
+    </script>
 </body>
 </html>
