@@ -38,6 +38,7 @@
 
         .content-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100%;
@@ -82,6 +83,24 @@
             background: white;
             color: black;
         }
+
+        .audio-button {
+            margin-top: 20px;
+            padding: 10px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            border: 2px solid white;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.7); /* Прозрачный черный фон */
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .audio-button:hover {
+            background: white;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -101,6 +120,7 @@
             <p><strong>Hobbies:</strong> Watching TikTok, decorating paintings by numbers, and dancing</p>
             <a href="http://t.me/ksellik" class="button">Telegram</a>
         </div>
+        <button class="audio-button" id="audio-button">Включить звук</button>
     </div>
 
     <script>
@@ -110,6 +130,20 @@
             const source = video.querySelector('source');
             source.src = source.getAttribute('data-src');
             video.load();
+        });
+
+        // Включение/отключение звука
+        const audioButton = document.getElementById('audio-button');
+        const video = document.getElementById('background-video');
+
+        audioButton.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                audioButton.textContent = 'Выключить звук';
+            } else {
+                video.muted = true;
+                audioButton.textContent = 'Включить звук';
+            }
         });
     </script>
 </body>
