@@ -64,6 +64,16 @@
             margin: 10px 0;
         }
 
+        a {
+            color: white;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #ff4d4d; /* Красный оттенок при наведении */
+        }
+
         .button {
             display: inline-block;
             margin-top: 20px;
@@ -98,8 +108,7 @@
         }
 
         .audio-button:hover {
-            background: white;
-            color: black;
+            background: rgba(255, 255, 255, 0.1); /* Лёгкий белый оттенок при наведении */
         }
     </style>
 </head>
@@ -118,9 +127,10 @@
             <p><strong>Birthday:</strong> 10.10</p>
             <p><strong>Country:</strong> Russia</p>
             <p><strong>Hobbies:</strong> Watching TikTok, decorating paintings by numbers, and dancing</p>
+            <p><strong>My love:</strong> <a href="https://t.me/codermasochist" target="_blank">click</a> ❤️</p>
             <a href="http://t.me/ksellik" class="button">Telegram</a>
         </div>
-        <button class="audio-button" id="audio-button">Включить звук</button>
+        <button class="audio-button" id="audio-button">Тык</button>
     </div>
 
     <script>
@@ -137,13 +147,8 @@
         const video = document.getElementById('background-video');
 
         audioButton.addEventListener('click', () => {
-            if (video.muted) {
-                video.muted = false;
-                audioButton.textContent = 'Выключить звук';
-            } else {
-                video.muted = true;
-                audioButton.textContent = 'Включить звук';
-            }
+            video.muted = !video.muted;
+            audioButton.textContent = 'Тык';
         });
     </script>
 </body>
