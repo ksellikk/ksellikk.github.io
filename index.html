@@ -46,12 +46,25 @@
         }
 
         .content {
-            background: rgba(0, 0, 0, 0.7); /* Прозрачный черный фон */
+            background: rgba(0, 0, 0, 0.7); /* Стартовый цвет для фона */
             padding: 40px;
             border-radius: 10px;
             text-align: center;
             max-width: 500px;
             width: 100%;
+            animation: colorChange 6s infinite alternate; /* Анимация смены фона */
+        }
+
+        @keyframes colorChange {
+            0% {
+                background: rgba(0, 0, 0, 0.7);
+            }
+            50% {
+                background: rgba(192, 192, 192, 0.6); /* Серебристый оттенок */
+            }
+            100% {
+                background: rgba(0, 0, 0, 0.7);
+            }
         }
 
         h1 {
@@ -65,7 +78,7 @@
         }
 
         a {
-            color: white;
+            color: red; /* Ссылка будет красной */
             text-decoration: underline;
             font-weight: bold;
         }
@@ -148,7 +161,7 @@
 
         audioButton.addEventListener('click', () => {
             video.muted = !video.muted;
-            audioButton.textContent = 'Тык';
+            audioButton.textContent = video.muted ? 'Тык' : 'Тык';
         });
     </script>
 </body>
