@@ -3,166 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ksyusha Bio</title>
+    <title>♡</title>
     <style>
-        /* Reset */
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body, html {
-            width: 100%;
-            height: 100%;
-            font-family: 'Arial', sans-serif;
-            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #ccc;
             overflow: hidden;
         }
 
-        .video-background {
+        #bg-video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            object-fit: cover;
             z-index: -1;
         }
 
-        video {
-            width: 100%;
-            height: 100%;
+        .container {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #ccc;
             object-fit: cover;
         }
 
-        .content-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 20px;
-        }
-
-        .content {
-            background: rgba(50, 50, 50, 0.4); /* Темно-серебристый цвет */
-            padding: 40px;
+        .about-container {
+            margin-top: 30px;
+            background: rgba(50, 50, 50, 0.7);
+            border: 2px solid #fff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
             border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            color: #fff;
             text-align: center;
-            max-width: 500px;
-            width: 100%;
-            animation: waveColor 6s infinite alternate; /* Анимация смены фона */
         }
 
-        @keyframes waveColor {
-            0% {
-                background: rgba(50, 50, 50, 0.4); /* Темно-серебристый цвет */
-            }
-            50% {
-                background: rgba(0, 0, 0, 0.6); /* Серебристо черный прозрачный */
-            }
-            100% {
-                background: rgba(50, 50, 50, 0.4); /* Темно-серебристый цвет */
-            }
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.5rem;
+        .about-container hr {
+            border: 0;
+            border-top: 1px solid #ccc;
             margin: 10px 0;
-        }
-
-        a {
-            color: red; /* Ссылка будет красной */
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
-        a:hover {
-            color: #ff4d4d; /* Красный оттенок при наведении */
-        }
-
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            color: white;
-            text-decoration: none;
-            border: 2px solid white;
-            border-radius: 5px;
-            background: transparent;
-            transition: 0.3s;
-        }
-
-        .button:hover {
-            background: white;
-            color: black;
-        }
-
-        .audio-button {
-            margin-top: 20px;
-            padding: 10px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            border: 2px solid white;
-            border-radius: 5px;
-            background: rgba(0, 0, 0, 0.7); /* Прозрачный черный фон */
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .audio-button:hover {
-            background: rgba(255, 255, 255, 0.1); /* Лёгкий белый оттенок при наведении */
         }
     </style>
 </head>
 <body>
-    <div class="video-background">
-        <video id="background-video" autoplay loop muted preload="none" poster="poster.jpg">
-            <source data-src="https://envs.sh/z7Q.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-    <div class="content-container">
-        <div class="content">
-            <h1>About me:</h1>
-            <p><strong>Name:</strong> Ksyusha</p>
-            <p><strong>Age:</strong> 16</p>
-            <p><strong>Birthday:</strong> 10.10</p>
-            <p><strong>Country:</strong> Russia</p>
-            <p><strong>Hobbies:</strong> Watching TikTok, decorating paintings by numbers, and dancing</p>
-            <p><strong>My love:</strong> <a href="https://t.me/codermasochist" target="_blank">click</a> ❤️</p>
-            <a href="http://t.me/ksellik" class="button">Telegram</a>
+    <div class="container">
+        <div class="avatar">
+            <img src="https://envs.sh/yxJ.png" alt="Avatar">
         </div>
-        <button class="audio-button" id="audio-button">Тык</button>
+        <div class="about-container">
+            <strong>About me:</strong>
+            <hr>
+            <p>Name: Ksyusha</p>
+            <p>Age: 16</p>
+            <p>Birthday: 10.10</p>
+            <p>Country: Russia</p>
+            <p>Hobbies: Watching TikTok, decorating paintings by numbers, and dancing</p>
+        </div>
     </div>
-
-    <script>
-        // Lazy-loading видео
-        document.addEventListener("DOMContentLoaded", () => {
-            const video = document.getElementById('background-video');
-            const source = video.querySelector('source');
-            source.src = source.getAttribute('data-src');
-            video.load();
-        });
-
-        // Включение/отключение звука
-        const audioButton = document.getElementById('audio-button');
-        const video = document.getElementById('background-video');
-
-        audioButton.addEventListener('click', () => {
-            video.muted = !video.muted;
-            audioButton.textContent = video.muted ? 'Тык' : 'Тык';
-        });
-    </script>
+    <video autoplay muted loop id="bg-video" preload="auto">
+        <source src="https://envs.sh/yxr.mp4" type="video/mp4">
+    </video>
 </body>
 </html>
