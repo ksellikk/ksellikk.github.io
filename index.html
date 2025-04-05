@@ -54,6 +54,25 @@
       border-radius: 50%;
       animation: pulse 1.2s infinite ease-in-out;
       box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+      margin-bottom: 15px;
+    }
+
+    .loading-text {
+      font-size: 18px;
+      color: #ddd;
+      margin-bottom: 60px;
+      letter-spacing: 1px;
+      opacity: 0.85;
+    }
+
+    .loading-footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #bbb;
+      opacity: 0.7;
     }
 
     @keyframes pulse {
@@ -69,16 +88,6 @@
         transform: scale(1);
         opacity: 1;
       }
-    }
-
-    .loading-footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-      color: #bbb;
-      opacity: 0.7;
     }
 
     .container {
@@ -119,6 +128,7 @@
 <body>
   <div class="loading-screen" id="loading-screen">
     <div class="pulse-loader"></div>
+    <div class="loading-text">Loading...</div>
     <div class="loading-footer">© 2025 codermasochist.</div>
   </div>
 
