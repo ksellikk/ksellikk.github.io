@@ -30,23 +30,37 @@
             visibility: hidden;
         }
 
-        .loading-spinner {
+        .loading-screen {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #555, #333);
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
             width: 50px;
             height: 50px;
             border: 5px solid rgba(255, 255, 255, 0.3);
             border-top: 5px solid #fff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            transform: translate(-50%, -50%);
-            z-index: 10;
+        }
+
+        .loading-footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #aaa;
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .container {
@@ -85,7 +99,10 @@
     </style>
 </head>
 <body>
-    <div class="loading-spinner"></div>
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-footer">© 2025 codermasochist.</div>
+    </div>
 
     <div class="container">
         <div class="avatar">
@@ -108,14 +125,17 @@
 
     <script>
         const video = document.getElementById('bg-video');
-        const loadingSpinner = document.querySelector('.loading-spinner');
+        const loadingScreen = document.getElementById('loading-screen');
         const container = document.querySelector('.container');
 
         video.oncanplaythrough = () => {
-            loadingSpinner.style.display = 'none';
-            container.style.opacity = '1';
-            container.style.transform = 'translateY(0)';
             video.style.visibility = 'visible';
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 500);
         };
     </script>
 </body>
