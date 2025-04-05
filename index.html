@@ -1,142 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>♡</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-            color: #ccc;
-            overflow: hidden;
-            background: linear-gradient(45deg, #555, #333);
-            position: relative;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>♡</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            visibility: hidden;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #ccc;
+      overflow: hidden;
+      background: linear-gradient(45deg, #555, #333);
+      position: relative;
+    }
 
-        .loading-screen {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #555, #333);
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            transition: opacity 0.5s ease;
-        }
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      visibility: hidden;
+    }
 
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+    .loading-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #555, #333);
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: opacity 0.6s ease;
+    }
 
-        .loading-footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #aaa;
-        }
+    .pulse-loader {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #fff, #aaa);
+      border-radius: 50%;
+      animation: pulse 1.2s infinite ease-in-out;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
 
-        .container {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-            z-index: 2;
-        }
+    .loading-footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #bbb;
+      opacity: 0.7;
+    }
 
-        .avatar img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #ccc;
-            object-fit: cover;
-        }
+    .container {
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+      z-index: 2;
+    }
 
-        .about-container {
-            margin-top: 30px;
-            background: rgba(50, 50, 50, 0.7);
-            border: 2px solid #fff;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            width: 300px;
-            color: #fff;
-            text-align: center;
-        }
+    .avatar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #ccc;
+      object-fit: cover;
+    }
 
-        .about-container hr {
-            border: 0;
-            border-top: 1px solid #ccc;
-            margin: 10px 0;
-        }
-    </style>
+    .about-container {
+      margin-top: 30px;
+      background: rgba(50, 50, 50, 0.7);
+      border: 2px solid #fff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .about-container hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-spinner"></div>
-        <div class="loading-footer">© 2025 codermasochist.</div>
+  <div class="loading-screen" id="loading-screen">
+    <div class="pulse-loader"></div>
+    <div class="loading-footer">© 2025 codermasochist.</div>
+  </div>
+
+  <div class="container">
+    <div class="avatar">
+      <img src="https://x0.at/oCvI.png" alt="Avatar" />
     </div>
-
-    <div class="container">
-        <div class="avatar">
-            <img src="https://x0.at/oCvI.png" alt="Avatar">
-        </div>
-        <div class="about-container">
-            <strong>About me:</strong>
-            <hr>
-            <p>Name: Ksyusha</p>
-            <p>Age: 16</p>
-            <p>Birthday: 10.10</p>
-            <p>Country: Russia</p>
-            <p>Hobbies: Watching TikTok, decorating paintings by numbers, and dancing</p>
-        </div>
+    <div class="about-container">
+      <strong>About me:</strong>
+      <hr />
+      <p>Name: Ksyusha</p>
+      <p>Age: 16</p>
+      <p>Birthday: 10.10</p>
+      <p>Country: Russia</p>
+      <p>Hobbies: Watching TikTok, decorating paintings by numbers, and dancing</p>
     </div>
+  </div>
 
-    <video autoplay muted loop id="bg-video" preload="auto">
-        <source src="https://x0.at/8ssL.mp4" type="video/mp4">
-    </video>
+  <video autoplay muted loop id="bg-video" preload="auto">
+    <source src="https://x0.at/8ssL.mp4" type="video/mp4" />
+  </video>
 
-    <script>
-        const video = document.getElementById('bg-video');
-        const loadingScreen = document.getElementById('loading-screen');
-        const container = document.querySelector('.container');
+  <script>
+    const video = document.getElementById('bg-video');
+    const loadingScreen = document.getElementById('loading-screen');
+    const container = document.querySelector('.container');
 
-        video.oncanplaythrough = () => {
-            video.style.visibility = 'visible';
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-                container.style.opacity = '1';
-                container.style.transform = 'translateY(0)';
-            }, 500);
-        };
-    </script>
+    video.oncanplaythrough = () => {
+      video.style.visibility = 'visible';
+      loadingScreen.style.opacity = '0';
+      setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 600);
+    };
+  </script>
 </body>
 </html>
