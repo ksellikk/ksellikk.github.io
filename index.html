@@ -1,170 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>♡</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ks | info ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #ccc;
-      overflow: hidden;
-      background: linear-gradient(45deg, #555, #333);
-      position: relative;
-    }
+        body, html {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    #bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      visibility: hidden;
-    }
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
 
-    .loading-screen {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #555, #333);
-      z-index: 10;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      transition: opacity 0.6s ease;
-    }
+        .loading-bar-container {
+            width: 80%;
+            max-width: 300px;
+            position: relative;
+            margin-top: 40px;
+        }
 
-    .pulse-loader {
-      width: 60px;
-      height: 60px;
-      background: linear-gradient(135deg, #fff, #aaa);
-      border-radius: 50%;
-      animation: pulse 1.2s infinite ease-in-out;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-      margin-bottom: 25px;
-    }
+        .loading-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
 
-    .loading-text {
-      font-size: 18px;
-      color: #ddd;
-      margin-bottom: 60px;
-      letter-spacing: 1px;
-      opacity: 0.85;
-    }
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff4d94, #ff8cb4);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
 
-    .loading-footer {
-      position: absolute;
-      bottom: 35px;
-      width: 100%;
-      text-align: center;
-      font-size: 14px;
-      color: #bbb;
-      opacity: 0.7;
-    }
+        .motorcycle-loader {
+            position: absolute;
+            top: -30px;
+            left: 0%;
+            font-size: 30px;
+            color: #ff4d94;
+            transform: translateX(-50%) scaleX(-1);
+            transition: left 0.3s ease;
+        }
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.2);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+        .loading-text {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
 
-    .container {
-      text-align: center;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1s ease, transform 1s ease;
-      z-index: 2;
-    }
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.8s ease-in;
+        }
 
-    .avatar img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      border: 3px solid #ccc;
-      object-fit: cover;
-    }
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
 
-    .about-container {
-      margin-top: 30px;
-      background: rgba(50, 50, 50, 0.7);
-      border: 2px solid #fff;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-      border-radius: 10px;
-      padding: 20px;
-      width: 300px;
-      color: #fff;
-      text-align: center;
-    }
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 30px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
 
-    .about-container hr {
-      border: 0;
-      border-top: 1px solid #ccc;
-      margin: 10px 0;
-    }
-  </style>
+        .counter {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid #ff4d94;
+            padding: 3px;
+            margin-bottom: 30px;
+            transition: transform 0.5s ease;
+            background: #000;
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar:hover img {
+            transform: scale(1.02);
+        }
+
+        .typewriter {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 25px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #333;
+            margin-bottom: 15px;
+        }
+
+        .typewriter-text {
+            color: #fff;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: center;
+            min-height: 130px;
+            display: block;
+            font-family: Consolas, monospace;
+            white-space: pre-wrap;
+            vertical-align: middle;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: #ff4d94;
+            position: relative;
+            top: 0;
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+
+        .motorcycle-icon {
+            margin: 15px 0;
+            color: #ff4d94;
+            font-size: 24px;
+            opacity: 0.9;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .motorcycle-icon:hover {
+            color: #fff;
+            transform: translateY(-4px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #888;
+            font-size: 16px;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .avatar {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .typewriter {
+                padding: 30px;
+                max-width: 450px;
+            }
+            
+            .typewriter-text {
+                font-size: 20px;
+                min-height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .avatar {
+                width: 110px;
+                height: 110px;
+                margin-bottom: 25px;
+            }
+            
+            .typewriter {
+                padding: 20px 15px;
+            }
+            
+            .typewriter-text {
+                font-size: 16px;
+                min-height: 110px;
+            }
+            
+            .motorcycle-icon {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .avatar {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+            }
+            
+            .typewriter {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="loading-screen" id="loading-screen">
-    <div class="pulse-loader"></div>
-    <div class="loading-text">Loading...</div>
-    <div class="loading-footer">© 2025 codermasochist.</div>
-  </div>
-
-  <div class="container">
-    <div class="avatar">
-      <img src="https://x0.at/oCvI.png" alt="Avatar" />
+    <div id="preloader">
+        <div class="loading-bar-container">
+            <div class="motorcycle-loader">🏍️</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+        <div class="loading-text">Загрузка...</div>
     </div>
-    <div class="about-container">
-      <strong>About me:</strong>
-      <hr />
-      <p>Name: Ksyusha</p>
-      <p>Age: 16</p>
-      <p>Birthday: 10.10</p>
-      <p>Country: Russia</p>
-      <p>Hobbies: Watching TikTok, decorating paintings by numbers, and dancing</p>
+
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="assets/background.mp4" type="video/mp4">
+        </video>
     </div>
-  </div>
 
-  <video autoplay muted loop id="bg-video" preload="auto">
-    <source src="https://x0.at/8ssL.mp4" type="video/mp4" />
-  </video>
+    <div class="container">
+        <div class="counter">
+            <img src="https://count.getloli.com/@ks?name=ks&theme=asoul&padding=7&offset=0&align=top&scale=1&pixelated=1&darkmode=auto" alt="Счетчик посещений">
+        </div>
+        
+        <div class="avatar">
+            <img src="https://t.me/i/userpic/160/ksellik.jpg" alt="KS Avatar">
+        </div>
+        
+        <div class="typewriter">
+            <div class="typewriter-text" id="typewriter"></div>
+        </div>
 
-  <script>
-    const video = document.getElementById('bg-video');
-    const loadingScreen = document.getElementById('loading-screen');
-    const container = document.querySelector('.container');
+        <a href="https://t.me/ksellik" class="motorcycle-icon">
+            <i class="fas fa-motorcycle"></i>
+        </a>
 
-    video.oncanplaythrough = () => {
-      video.style.visibility = 'visible';
-      loadingScreen.style.opacity = '0';
-      setTimeout(() => {
-        loadingScreen.style.display = 'none';
-        container.style.opacity = '1';
-        container.style.transform = 'translateY(0)';
-      }, 600);
-    };
-  </script>
+        <div class="footer">© codermasochist. All right reserved.</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            const videoBackground = document.querySelector('.video-background');
+            const container = document.querySelector('.container');
+            const motorcycleLoader = document.querySelector('.motorcycle-loader');
+            const loadingProgress = document.querySelector('.loading-progress');
+            const textElement = document.getElementById('typewriter');
+            const video = document.querySelector('video');
+            
+            const text = "a little bit about me:\nName: ks\nAge: 16 y. o.\nMotorcycle & TikTok ♥️";
+            
+            let videoLoaded = false;
+            let minLoadingTimePassed = false;
+            
+            const MIN_LOADING_TIME = 800;
+            
+            video.addEventListener('loadeddata', function() {
+                videoLoaded = true;
+                checkLoadingComplete();
+            });
+            
+            if (video.readyState >= 3) {
+                videoLoaded = true;
+            }
+            
+            setTimeout(function() {
+                minLoadingTimePassed = true;
+                checkLoadingComplete();
+            }, MIN_LOADING_TIME);
+            
+            function checkLoadingComplete() {
+                if (videoLoaded && minLoadingTimePassed) {
+                    completeLoading();
+                }
+            }
+            
+            function completeLoading() {
+                videoBackground.style.opacity = "1";
+                container.style.opacity = "1";
+                container.style.transform = "translateY(0)";
+                
+                setTimeout(() => {
+                    preloader.style.opacity = "0";
+                    setTimeout(() => {
+                        preloader.style.display = "none";
+                        startTypewriter();
+                    }, 500);
+                }, 300);
+            }
+            
+            let progress = 0;
+            const loadingInterval = setInterval(() => {
+                progress += Math.random() * 12;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+                }
+                
+                loadingProgress.style.width = progress + '%';
+                motorcycleLoader.style.left = progress + '%';
+            }, 150);
+            
+            function startTypewriter() {
+                const fullText = "a little bit about me:\nName: ks\nAge: 16 y. o.\nMotorcycle & TikTok ♥️";
+                let i = 0;
+                const speed = 100;
+
+                textElement.innerHTML = '';
+
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                textElement.appendChild(cursor)
+
+                function typeWriter() {
+                    if (i < fullText.length) {
+                        const char = fullText[i];
+                        if (char === '\n') {
+                            textElement.insertBefore(document.createElement('br'), cursor);
+                        } else {
+                            const textNode = document.createTextNode(char);
+                            textElement.insertBefore(textNode, cursor);
+                        }
+                        i++;
+                        setTimeout(typeWriter, char === '\n' ? speed * 2 : speed);
+                    } else {
+                        cursor.remove();
+                    }
+                }
+
+                typeWriter();
+            }
+            setTimeout(function() {
+                if (!videoLoaded || !minLoadingTimePassed) {
+                    completeLoading();
+                }
+            }, 4000);
+        });
+    </script>
 </body>
 </html>
